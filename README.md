@@ -12,6 +12,7 @@ To bridge this gap, we developed Agrinexus: a comprehensive Database Management 
 - [Installation](#installation)
 - [Twilio Integration](#twilio-integration)
 - [Run the Project](#run-the-project)
+- [Login Instructions](login-instructions)
 - [Contributors](#contributors)
 ## Key Features
 #### 1. **Loan & Scheme Awareness**:
@@ -75,12 +76,18 @@ ACCOUNT_SID=your_account_sid
 AUTH_TOKEN=your_auth_token
 TWILIO_PHONE_NUMBER=your_twilio_number
 ```
-#### 4.Important: With a free Twilio account, you can only send messages to verified phone numbers.
 ## Run the Project
 Once setup is complete, start the application with: 
 ```bash
 python app.py
 ```
+## Login Instructions:
+#### 1. To Register/Log in as Authority:
+- Use an email in the following format: example@agri.com
+- Use the default password: AgridataNexus@123
+#### 2. To Log in as Farmer:
+- Farmers must be registered by an authority before logging in.
+- Use the Aadhar ID and Mobile Number exactly as registered by the authority.
 ## Contributors
 - [Jayanthi-21](https://github.com/Jayanthi-21)
 - [onlyyashwanth1](https://github.com/onlyyashwanth1)
