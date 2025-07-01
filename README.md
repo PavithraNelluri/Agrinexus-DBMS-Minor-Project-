@@ -8,22 +8,47 @@ To bridge this gap, we developed Agrinexus: a comprehensive Database Management 
 
 📌 This project was developed as part of our Database Management Systems (DBMS) Minor Project coursework.
 ## Table of Contents
+- [Key Features](#key-features)
 - [Installation](#installation)
 - [Twilio Integration](#twilio-integration)
 - [Run the Project](#run-the-project)
-- [Usage](#usage)
 - [Contributors](#contributors)
-  
+## Key Features
+#### 1. **Loan & Scheme Awareness**:
+- Farmers can view available government loans, schemes, and subsidies relevant to their profiles.
+#### 2. **Farmer & Crop Management**:
+- Authorities can register farmers and add details about their crops, lands, loans, schemes and subsidies.
+- Authorities will add or update available loans, schemes, subsidies.
+ #### 3. **AI-Powered Crop Recommendation**:
+- A Machine Learning model suggests optimal crops for the upcoming year based on soil profile and geographic conditions (e.g., temperature, humidity, and average rainfall), retrieved via external APIs.
+#### 4. **SMS Notifications via Twilio**:
+  - Sends a welcome message to the farmer upon first login.
+  - Sends loan repayment reminders to ensure timely payments.
+#### 5. **Centralized Farmer Dashboard**: Farmers can access a personalized dashboard showing:
+  - Crops grown each year.
+  - Land details.
+  - Details of loans, subsidies, and schemes availed.
 ## Installation
 #### 1.Clone the Repository
 ```bash
 git@github.com:PavithraNelluri/Agrinexus-DBMS-Minor-Project-.git
 ```
-#### 2.Create a Virtual Environment
+#### 2.Set Up the DataBase
+-  Create a MySQL account if you don’t have one. 
+-  Log in to MySQL and create a new database and paste the code given in the Agrinexus.sql file.
+-  Create a .env file in your project directory and add the following:
+
+```bash
+MYSQL_HOST="your host name"   # usually "localhost"
+MYSQL_USER="your user name"  # e.g., "root"
+MYSQL_PASSWORD="your password"
+MYSQL_DB="your "AgriData"
+```
+#### 3.Create a Virtual Environment
 ```bash
 python -m venv venv
 ```
-#### 3.Activate the virtual environment
+#### 4.Activate the virtual environment
 - On Windows
 ```bash
 venv/Scripts/activate
@@ -32,7 +57,7 @@ venv/Scripts/activate
 ```bash
   source venv/bin/activate
 ```
-#### 4.Install Dependencies
+#### 5.Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
@@ -56,4 +81,9 @@ Once setup is complete, start the application with:
 ```bash
 python app.py
 ```
+## Contributors
+- [Jayanthi-21](https://github.com/Jayanthi-21)
+- [onlyyashwanth1](https://github.com/onlyyashwanth1)
+- [prudhvi-machana](https://github.com/prudhvi-machana)
+- [PavithraNelluri](https://github.com/PavithraNelluri)
 
