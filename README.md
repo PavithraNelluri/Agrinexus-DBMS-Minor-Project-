@@ -2,7 +2,7 @@
   
 Agriculture plays a vital role in many economies, but farmers often face challenges accessing the information they need to improve their livelihoods. Simultaneously, governments and agricultural researchers require accurate, centralized data to make informed decisions.
 
-However, the absence of a unified system to manage crop details, government subsidies, and loans creates a significant gap—hindering effective planning and support.
+However, the absence of a unified system to manage crop details, government subsidies, and loans creates a significant gap hindering effective planning and support.
 
 To bridge this gap, we developed Agrinexus: a comprehensive Database Management System with a user-friendly interface that consolidates all essential agricultural information into a single platform.
 
