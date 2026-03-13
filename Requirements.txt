@@ -1,9 +1,0 @@
-flask
-flask_wtf
-bcrypt
-flask_mysqldb
-twilio
-joblib
-numpy
-scikit-learn==1.5.2
-dotenv

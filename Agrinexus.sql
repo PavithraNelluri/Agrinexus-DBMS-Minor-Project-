@@ -1,7 +1,9 @@
-
-CREATE DATABASE AgriData;
+CREATE DATABASE IF NOT EXISTS AgriData;
 USE AgriData;
-CREATE TABLE auths (
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+CREATE TABLE IF NOT EXISTS auths (
     auth_id INT AUTO_INCREMENT PRIMARY KEY,
     auth_name VARCHAR(100) NOT NULL,
     auth_email VARCHAR(255) NOT NULL UNIQUE,
@@ -11,7 +13,7 @@ CREATE TABLE auths (
 );
 
 -- Create table for farmers
-CREATE TABLE farmers (
+CREATE TABLE IF NOT EXISTS farmers (
     farmer_id INT AUTO_INCREMENT PRIMARY KEY,  
     farmer_name VARCHAR(100) NOT NULL,
     date_of_birth DATE NOT NULL,
@@ -22,18 +24,19 @@ CREATE TABLE farmers (
     first_login BOOLEAN DEFAULT TRUE
 );
 
-CREATE TABLE lands(
+CREATE TABLE IF NOT EXISTS lands(
     land_id INT AUTO_INCREMENT PRIMARY KEY,
     aadhar_id VARCHAR(12),
     location VARCHAR(50) NOT NULL,
     soil_type VARCHAR(50) NOT NULL,
     land_size DECIMAL(10,4) NOT NULL,
     deleted BOOLEAN DEFAULT FALSE ,
-    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id)ON DELETE CASCADE ON UPDATE CASCADE  -- Cascades on both delete and update
-    );
-    
-    -- Crops Grown on Land
-CREATE TABLE crops (
+    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id)
+    ON DELETE CASCADE ON UPDATE CASCADE  -- Cascades on both delete and update
+);
+
+-- Crops Grown on Land
+CREATE TABLE IF NOT EXISTS crops (
     land_id INT,
     aadhar_id VARCHAR(12),
     crop_name VARCHAR(100) NOT NULL,
@@ -48,11 +51,11 @@ CREATE TABLE crops (
     crop_active BOOLEAN DEFAULT TRUE,
     PRIMARY KEY (land_id, crop_name, planting_date),
     FOREIGN KEY (land_id) REFERENCES lands(land_id) ON DELETE NO ACTION,
-    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
-CREATE TABLE loans (
+CREATE TABLE IF NOT EXISTS loans (
     loan_id INT AUTO_INCREMENT PRIMARY KEY,
     loan_type VARCHAR(100) NOT NULL UNIQUE,
     description TEXT NOT NULL,
@@ -60,23 +63,21 @@ CREATE TABLE loans (
     deleted BOOLEAN DEFAULT FALSE  -- Added column to mark if the loan is deleted
 );
 
-
-CREATE TABLE loans_taken (
+CREATE TABLE IF NOT EXISTS loans_taken (
     loan_type VARCHAR(100),  -- Change from loan_id to loan_type
     aadhar_id VARCHAR(12),
     bank_name VARCHAR(100) NOT NULL, 
     sanction_date DATE NOT NULL,
     due_date DATE NOT NULL,
     amount_taken DECIMAL(10, 2) NOT NULL,
-    status ENUM('paid', 'unpaid') NOT NULL DEFAULT 'unpaid',
+    status ENUM('paid', 'unpaid') NOT NULL,
     PRIMARY KEY (loan_type, aadhar_id, sanction_date),  -- Composite Primary Key
     FOREIGN KEY (loan_type) REFERENCES loans(loan_type) ON DELETE NO ACTION,  -- Reference by loan_type
-    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id) ON DELETE CASCADE ON UPDATE CASCADE  -- Cascades on both delete and update
+    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id)
+    ON DELETE CASCADE ON UPDATE CASCADE  -- Cascades on both delete and update
 );
 
-
-
-CREATE TABLE subsidies (
+CREATE TABLE IF NOT EXISTS subsidies (
     subsidy_id INT AUTO_INCREMENT PRIMARY KEY,
     subsidy_name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT NOT NULL,
@@ -85,16 +86,17 @@ CREATE TABLE subsidies (
 	deleted BOOLEAN DEFAULT FALSE 
 );
 
-CREATE TABLE subsidies_taken (
+CREATE TABLE IF NOT EXISTS subsidies_taken (
 	subsidy_name VARCHAR(255),
     aadhar_id VARCHAR(12),
     sanction_date DATE NOT NULL,
      PRIMARY KEY (subsidy_name, aadhar_id, sanction_date),  -- Composite Primary Key
     FOREIGN KEY (subsidy_name) REFERENCES subsidies(subsidy_name) ON DELETE NO ACTION,  
-    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id) ON DELETE CASCADE ON UPDATE CASCADE  -- Cascades on both delete and update
+    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id)
+    ON DELETE CASCADE ON UPDATE CASCADE  -- Cascades on both delete and update
 );
 
-CREATE TABLE schemes (
+CREATE TABLE IF NOT EXISTS schemes (
     scheme_id INT AUTO_INCREMENT PRIMARY KEY,
     scheme_name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT NOT NULL,
@@ -103,38 +105,44 @@ CREATE TABLE schemes (
     deleted BOOLEAN DEFAULT FALSE 
 );
 
-CREATE TABLE schemes_taken (
+CREATE TABLE IF NOT EXISTS schemes_taken (
 	scheme_name VARCHAR(255),
     aadhar_id VARCHAR(12),
     approval_date DATE NOT NULL,
 	PRIMARY KEY (scheme_name, aadhar_id, approval_date),  -- Composite Primary Key
     FOREIGN KEY (scheme_name) REFERENCES schemes(scheme_name) ON DELETE NO ACTION,  
-    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id) ON DELETE CASCADE ON UPDATE CASCADE  -- Cascades on both delete and update
+    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id)
+    ON DELETE CASCADE ON UPDATE CASCADE  -- Cascades on both delete and update
 );
 
-CREATE TABLE farmer_notifications (
+CREATE TABLE IF NOT EXISTS farmer_notifications (
     notification_id INT AUTO_INCREMENT PRIMARY KEY,  
     farmer_id INT NOT NULL,                         -- Reference to the farmer
     notification_type VARCHAR(100),                 -- Type of notification (e.g., 'Welcome Message')
     notification_message TEXT,                      -- The content of the notification
     sent BOOLEAN DEFAULT FALSE,                     -- Status to check if the notification has been sent
-    sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,                  -- Timestamp when the notification was sent
-    FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) on DELETE CASCADE ON UPDATE CASCADE -- Link to the farmers table
+    sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,     -- Timestamp when the notification was sent
+    FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id)
+    ON DELETE CASCADE ON UPDATE CASCADE -- Link to the farmers table
 );
-#loan notifications
-CREATE TABLE notifications (
+
+#notification for loans
+CREATE TABLE IF NOT EXISTS notifications (
     notification_id INT AUTO_INCREMENT PRIMARY KEY,
-    farmer_id INT NOT NULL,  -- Refers to farmer_id in farmers table
+    aadhar_id VARCHAR(12) NOT NULL,  -- Refers to Aadhar ID in farmers table
     message VARCHAR(255) NOT NULL,   -- The notification message
     notification_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp of notification creation
     is_sent BOOLEAN DEFAULT FALSE,  -- Indicates whether the notification is sent
-    FOREIGN KEY (farmer_id) REFERENCES farmers(farmer_id) on DELETE CASCADE ON UPDATE CASCADE -- Cascade delete
+    FOREIGN KEY (aadhar_id) REFERENCES farmers(aadhar_id)
+    ON DELETE CASCADE -- Cascade delete
 );
 
+SET FOREIGN_KEY_CHECKS = 1;
 
 DELIMITER //
-CREATE EVENT update_crop_active_event
-ON SCHEDULE EVERY 1 second   -- Adjust the interval as needed, e.g., '1 HOUR', '1 DAY', etc.
+
+CREATE EVENT IF NOT EXISTS update_crop_active_event
+ON SCHEDULE EVERY 1 DAY
 DO
 BEGIN
     UPDATE crops
@@ -149,7 +157,8 @@ END;
 //
 
 DELIMITER ;
-SET GLOBAL event_scheduler = ON;
+
+-- SET GLOBAL event_scheduler = ON;
 
 DELIMITER $$
 CREATE TRIGGER after_farmer_login
@@ -163,9 +172,6 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
-
-
-
 
 DELIMITER $$
 
