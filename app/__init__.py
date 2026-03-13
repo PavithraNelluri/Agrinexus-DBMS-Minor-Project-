@@ -11,7 +11,7 @@ def create_app():
     # MySQL configuration
     app.config["MYSQL_HOST"] = "localhost"
     app.config["MYSQL_USER"] = "agrinexus"
-    app.config["MYSQL_PASSWORD"] = "#Prudhvi88784"
+    app.config["MYSQL_PASSWORD"] = "your password"
     app.config["MYSQL_DB"] = "AgriData"
 
     # initialize database
