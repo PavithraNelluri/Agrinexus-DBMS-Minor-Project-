@@ -3,18 +3,21 @@ from app.services import subsidy_service
 
 subsidy_bp = Blueprint('subsidy', __name__)
 
-
-# =========================
 # Manage Subsidies (Admin)
-# =========================
 
-@subsidy_bp.route('/manage_subsidies')
+@subsidy_bp.route('/manage_subsidies', methods=['GET','POST'])
 def manage_subsidies():
 
     if 'auth_email' not in session:
         flash("Please login first", "error")
         return redirect(url_for('auth.auth_login'))
 
+    # POST → redirect (PRG)
+    if request.method == 'POST':
+        search = request.form.get("subsidy_name")
+        return redirect(url_for('subsidy.manage_subsidies', subsidy_name=search))
+
+    # GET → actual data fetch
     search = request.args.get("subsidy_name")
 
     subsidies = subsidy_service.get_subsidies(search)
@@ -28,9 +31,7 @@ def manage_subsidies():
     )
 
 
-# =========================
 # Add Subsidy
-# =========================
 
 @subsidy_bp.route('/add_subsidy', methods=['POST'])
 def add_subsidy():
@@ -56,9 +57,7 @@ def add_subsidy():
     return redirect(url_for("subsidy.manage_subsidies"))
 
 
-# =========================
 # Update Subsidy
-# =========================
 
 @subsidy_bp.route('/update_subsidy/<int:id>', methods=['POST'])
 def update_subsidy(id):
@@ -74,9 +73,7 @@ def update_subsidy(id):
     return redirect(url_for("subsidy.manage_subsidies"))
 
 
-# =========================
 # Delete Subsidy
-# =========================
 
 @subsidy_bp.route('/delete_subsidy/<int:subsidy_id>', methods=['POST'])
 def delete_subsidy(subsidy_id):
@@ -88,9 +85,7 @@ def delete_subsidy(subsidy_id):
     return redirect(url_for("subsidy.manage_subsidies"))
 
 
-# ====================================
 # Manage Subsidies Taken by Farmers
-# ====================================
 
 @subsidy_bp.route('/manage_subsidies_taken/<aadhar_id>')
 def manage_subsidies_taken(aadhar_id):
@@ -113,9 +108,7 @@ def manage_subsidies_taken(aadhar_id):
     )
 
 
-# =========================
 # Add Subsidy Taken
-# =========================
 
 @subsidy_bp.route('/add_subsidy_taken/<aadhar_id>', methods=['POST'])
 def add_subsidy_taken(aadhar_id):
@@ -134,9 +127,7 @@ def add_subsidy_taken(aadhar_id):
     return redirect(url_for("subsidy.manage_subsidies_taken", aadhar_id=aadhar_id))
 
 
-# =========================
 # Delete Subsidy Taken
-# =========================
 
 @subsidy_bp.route('/delete_subsidy_taken/<aadhar_id>/<subsidy_name>/<sanction_date>', methods=['POST'])
 def delete_subsidy_taken(aadhar_id, subsidy_name, sanction_date):

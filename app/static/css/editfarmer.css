@@ -76,39 +76,39 @@ input:focus, select:focus {
 
 /* Success message styling */
 .flash-message.success {
-    background-color: #C6F6D5; /* green-100 */
-    color: #2F855A; /* green-700 */
+    background-color: #C6F6D5;
+    color: #2F855A;
 }
 
 /* Error message styling */
 .flash-message.error {
-    background-color: #FEEBC8; /* yellow-100 */
-    color: #C05621; /* red-700 */
+    background-color: #FEEBC8;
+    color: #C05621;
 }
 
 /* Sidebar alignment fix */
 .content {
-    padding-left: 1rem; /* Adjust padding */
-    margin-left: 16rem; /* Allow space for sidebar */
+    padding-left: 1rem;
+    margin-left: 16rem;
 }
 
 /* Media Queries for Responsive Design */
 @media (max-width: 768px) {
     .main-container {
         padding: 15px;
-        margin: 1rem; /* Reduce margin for smaller devices */
-        max-width: 90%; /* Allow the form to take more width */
+        margin: 1rem;
+        max-width: 90%;
     }
 
     .content {
-        margin-left: 0; /* No sidebar on small devices */
+        margin-left: 0;
     }
 }
 
 @media (max-width: 480px) {
     .main-container {
-        max-width: 95%; /* Allow the form to take even more width */
-        margin: 0.5rem; /* Smaller margin on very small devices */
+        max-width: 95%;
+        margin: 0.5rem;
     }
 
     input, select {

@@ -74,14 +74,14 @@ input:focus, select:focus {
 
 /* Success message styling */
 .flash-message.success {
-    background-color: #C6F6D5; /* green-100 */
-    color: #2F855A; /* green-700 */
+    background-color: #C6F6D5;
+    color: #2F855A;
 }
 
 /* Error message styling */
 .flash-message.error {
-    background-color: #FEEBC8; /* yellow-100 */
-    color: #C05621; /* red-700 */
+    background-color: #FEEBC8;
+    color: #C05621;
 }
 
 

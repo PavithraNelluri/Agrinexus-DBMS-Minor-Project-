@@ -67,7 +67,11 @@
                 <button class="bg-blue-600 text-white py-0.8 px-1.5 rounded md:hidden mr-2" onclick="toggleSidebar()">☰</button>
                 <h1 class="text-xl font-bold text-gray-800">{{ farmer.farmer_name }}</h1>
             </div>
-            <a href="{{ url_for('farmer_portal.farmer_logout') }}" class="logout-btn">Logout</a> <!-- Logout button -->
+            <a href="{{ url_for('farmer_portal.farmer_logout') }}" 
+                onclick="return confirm('Are you sure you want to logout?')" 
+                class="logout-btn">
+                Logout
+            </a>
         </div>
     </nav>
 

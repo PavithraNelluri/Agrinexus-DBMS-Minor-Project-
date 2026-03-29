@@ -2,9 +2,8 @@ from app.db.database import mysql
 import MySQLdb
 
 
-# =========================
 # Get Schemes
-# =========================
+
 def get_schemes(search=None):
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -26,9 +25,8 @@ def get_schemes(search=None):
     return schemes
 
 
-# =========================
 # Add Scheme
-# =========================
+
 def add_scheme(data):
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -64,9 +62,8 @@ def add_scheme(data):
     return "added"
 
 
-# =========================
 # Update Scheme
-# =========================
+
 def update_scheme(id, description, eligibility, last_date):
 
     cursor = mysql.connection.cursor()
@@ -85,9 +82,8 @@ def update_scheme(id, description, eligibility, last_date):
     cursor.close()
 
 
-# =========================
 # Delete Scheme
-# =========================
+
 def delete_scheme(scheme_id):
 
     cursor = mysql.connection.cursor()
@@ -102,9 +98,8 @@ def delete_scheme(scheme_id):
     cursor.close()
 
 
-# =========================
 # Get Schemes Taken (Farmer)
-# =========================
+
 def get_schemes_taken(aadhar_id, search=None):
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -131,9 +126,8 @@ def get_schemes_taken(aadhar_id, search=None):
     return schemes_taken
 
 
-# =========================
 # Get Active Schemes
-# =========================
+
 def get_active_schemes():
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -149,9 +143,8 @@ def get_active_schemes():
     return schemes
 
 
-# =========================
 # Add Scheme Taken
-# =========================
+
 def add_scheme_taken(aadhar_id, scheme_name, approval_date):
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -179,9 +172,8 @@ def add_scheme_taken(aadhar_id, scheme_name, approval_date):
     return "added"
 
 
-# =========================
 # Delete Scheme Taken
-# =========================
+
 def delete_scheme_taken(aadhar_id, scheme_name, approval_date):
 
     cursor = mysql.connection.cursor()

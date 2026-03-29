@@ -49,9 +49,22 @@
     {% endwith %}
 
     <!-- Search Bar -->
-    <form id="search-form" method="GET" action="{{ url_for('subsidy.manage_subsidies') }}" class="search-form">
-        <input type="text" name="subsidy_name" placeholder="Search by Subsidy Name" class="input-field" required>
+    <form method="POST" action="{{ url_for('subsidy.manage_subsidies') }}" class="flex gap-2 mb-4">
+
+        <input type="text" 
+            name="subsidy_name" 
+            value="{{ request.args.get('subsidy_name','') }}"
+            placeholder="Search by Subsidy Name" 
+            class="border p-2 rounded w-full">
+
         <button type="submit" class="search-button">Search</button>
+
+        <!-- Clear button -->
+        <a href="{{ url_for('subsidy.manage_subsidies') }}" 
+        class="bg-gray-400 text-white px-4 py-2 rounded">
+            Clear
+        </a>
+
     </form>
 
     <!-- Add Subsidy Button -->

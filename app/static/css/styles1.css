@@ -105,7 +105,7 @@ body {
 
 /* Textarea specific styling */
 .form-group textarea {
-    resize: vertical; /* Allows vertical resizing */
+    resize: vertical;
 }
 
 /* Buttons in the Add Crop Form */

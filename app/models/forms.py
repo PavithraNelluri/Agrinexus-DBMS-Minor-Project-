@@ -47,7 +47,7 @@ class RegisterForm(FlaskForm):
         self.validate_field(field,'auth_email','Email already exists')
 
     def validate_auth_phone_no(self, field):
-        self.validate_field(field,'auth_phone_no','Phone already exists')
+        self.validate_field(field,'auth_phone_no','Phone number already exists')
 
     def validate_auth_pass(self, field):
         if field.data != "AgridataNexus@123":

@@ -3,7 +3,7 @@
 {% block title %}Edit Farmer{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/editfarmer.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/editfarmer.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -12,13 +12,13 @@
 
     <form action="{{ url_for('farmer.edit_farmer', aadhar_id=farmer['aadhar_id']) }}" method="POST">
         {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="flash-message {{ category }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
         {% endwith %}
 
         <!-- Farmer Name -->
@@ -37,16 +37,17 @@
         <div class="form-group">
             <label for="f_gender">Select Gender</label>
             <select id="f_gender" name="f_gender" required>
-                <option value="male" {% if farmer['gender'] == 'male' %}selected{% endif %}>Male</option>
-                <option value="female" {% if farmer['gender'] == 'female' %}selected{% endif %}>Female</option>
-                <option value="other" {% if farmer['gender'] == 'other' %}selected{% endif %}>Other</option>
+                <option value="male" {% if farmer['gender']=='male' %}selected{% endif %}>Male</option>
+                <option value="female" {% if farmer['gender']=='female' %}selected{% endif %}>Female</option>
+                <option value="other" {% if farmer['gender']=='other' %}selected{% endif %}>Other</option>
             </select>
         </div>
 
         <!-- Phone Number -->
         <div class="form-group">
             <label for="f_phone">Phone Number</label>
-            <input type="tel" id="f_phone" name="f_phone" value="{{ farmer['phone_no'] }}" required pattern="[0-9]{10}" title="Phone number should be 10 digits"/>
+            <input type="tel" id="f_phone" name="f_phone" value="{{ farmer['phone_no'] }}" required pattern="[0-9]{10}"
+                title="Phone number should be 10 digits" />
         </div>
 
         <!-- Address -->
@@ -58,11 +59,15 @@
         <!-- AADHAR ID -->
         <div class="form-group">
             <label for="f_aadharId">AADHAR ID</label>
-            <input type="text" id="f_aadharId" name="f_aadharId" value="{{ farmer['aadhar_id'] }}" required pattern="[0-9]{12}" title="AADHAR number should be 12 digits"/>
+            <input type="text" id="f_aadharId" name="f_aadharId" value="{{ farmer['aadhar_id'] }}" required
+                pattern="[0-9]{12}" title="AADHAR number should be 12 digits" />
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="update-button">Update</button>
+        <button type="submit" onclick="return confirm('Are you sure you want to update this farmer?')"
+            class="update-button">
+            Update
+        </button>
 
     </form>
 </div>

@@ -5,35 +5,40 @@ import MySQLdb
 farmer_bp = Blueprint('farmer', __name__)
 
 
-@farmer_bp.route('/existing_farmers')
+@farmer_bp.route('/existing_farmers', methods=['GET', 'POST'])
 def existing_farmers():
 
     if 'auth_email' not in session:
         flash("Please login first","error")
         return redirect(url_for('auth.auth_login'))
 
-    search_aadhar_id = request.args.get('search_f_aadharId')
-
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-    if search_aadhar_id:
+    # STEP 1: handle POST (search request)
+    if request.method == 'POST':
+        search_aadhar_id = request.form.get('search_f_aadharId')
 
+        return redirect(url_for(
+            'farmer.existing_farmers',
+            search_f_aadharId=search_aadhar_id
+        ))
+
+    # STEP 2: handle GET (after redirect OR normal load)
+    search_aadhar_id = request.args.get('search_f_aadharId')
+
+    if search_aadhar_id:
         cursor.execute(
             "SELECT aadhar_id, farmer_name FROM farmers WHERE aadhar_id LIKE %s",
             ('%' + search_aadhar_id + '%',)
         )
-
         farmers = cursor.fetchall()
 
         if not farmers:
             flash("Farmer with this Aadhar ID does not exist","error")
-
     else:
-
         cursor.execute(
             "SELECT aadhar_id, farmer_name FROM farmers"
         )
-
         farmers = cursor.fetchall()
 
     cursor.close()

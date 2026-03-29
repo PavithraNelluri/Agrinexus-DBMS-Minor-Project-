@@ -6,9 +6,8 @@ import MySQLdb
 farmer_portal_bp = Blueprint('farmer_portal', __name__)
 
 
-# =========================
 # Farmer Login
-# =========================
+
 @farmer_portal_bp.route('/farmer_login', methods=['GET','POST'])
 def farmer_login():
 
@@ -42,9 +41,8 @@ def farmer_login():
     return render_template("farmer_login.html")
 
 
-# =========================
 # Farmer Details
-# =========================
+
 @farmer_portal_bp.route('/farmer_details')
 def farmer_details():
 
@@ -67,9 +65,8 @@ def farmer_details():
     return render_template("farmer_details.html", farmer=farmer)
 
 
-# =========================
 # Farmer Lands
-# =========================
+
 @farmer_portal_bp.route('/farmer_lands')
 def farmer_lands():
 
@@ -108,9 +105,8 @@ def farmer_lands():
     return render_template("farmer_lands.html", lands=lands, farmer=farmer)
 
 
-# =========================
 # Farmer Crops
-# =========================
+
 @farmer_portal_bp.route('/farmer_crops')
 def farmer_crops():
 
@@ -149,9 +145,8 @@ def farmer_crops():
     return render_template("farmer_crops.html", crops=crops, farmer=farmer)
 
 
-# =========================
 # Farmer Loans
-# =========================
+
 @farmer_portal_bp.route('/farmer_loans_taken')
 def farmer_loans_taken():
 
@@ -196,9 +191,8 @@ def farmer_loans_taken():
     )
 
 
-# =========================
 # Farmer Subsidies
-# =========================
+
 @farmer_portal_bp.route('/farmer_subsidies_taken')
 def farmer_subsidies_taken():
 
@@ -241,9 +235,8 @@ def farmer_subsidies_taken():
     )
 
 
-# =========================
 # Farmer Schemes
-# =========================
+
 @farmer_portal_bp.route('/farmer_schemes_taken')
 def farmer_schemes_taken():
 
@@ -286,9 +279,8 @@ def farmer_schemes_taken():
     )
 
 
-# =========================
 # Logout
-# =========================
+
 @farmer_portal_bp.route('/farmer_logout')
 def farmer_logout():
 

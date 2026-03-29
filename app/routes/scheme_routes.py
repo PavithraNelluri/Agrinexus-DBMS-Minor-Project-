@@ -3,9 +3,7 @@ from app.services import scheme_service
 
 scheme_bp = Blueprint('scheme', __name__)
 
-# =========================
 # Manage Schemes
-# =========================
 
 @scheme_bp.route('/manage_schemes')
 def manage_schemes():
@@ -24,9 +22,7 @@ def manage_schemes():
     )
 
 
-# =========================
 # Add Scheme
-# =========================
 
 @scheme_bp.route('/add_scheme', methods=['POST'])
 def add_scheme():
@@ -48,9 +44,7 @@ def add_scheme():
     return redirect(url_for("scheme.manage_schemes"))
 
 
-# =========================
 # Update Scheme
-# =========================
 
 @scheme_bp.route('/update_scheme/<int:id>', methods=['POST'])
 def update_scheme(id):
@@ -66,9 +60,7 @@ def update_scheme(id):
     return redirect(url_for("scheme.manage_schemes"))
 
 
-# =========================
 # Delete Scheme
-# =========================
 
 @scheme_bp.route('/delete_scheme/<int:scheme_id>', methods=['POST'])
 def delete_scheme(scheme_id):
@@ -80,9 +72,7 @@ def delete_scheme(scheme_id):
     return redirect(url_for("scheme.manage_schemes"))
 
 
-# =========================
 # Schemes Taken
-# =========================
 
 @scheme_bp.route('/manage_schemes_taken/<aadhar_id>')
 def manage_schemes_taken(aadhar_id):
@@ -105,9 +95,7 @@ def manage_schemes_taken(aadhar_id):
     )
 
 
-# =========================
 # Add Scheme Taken
-# =========================
 
 @scheme_bp.route('/add_scheme_taken/<aadhar_id>', methods=['POST'])
 def add_scheme_taken(aadhar_id):
@@ -126,9 +114,7 @@ def add_scheme_taken(aadhar_id):
     return redirect(url_for("scheme.manage_schemes_taken", aadhar_id=aadhar_id))
 
 
-# =========================
 # Delete Scheme Taken
-# =========================
 
 @scheme_bp.route('/delete_scheme_taken/<aadhar_id>/<scheme_name>/<approval_date>', methods=['POST'])
 def delete_scheme_taken(aadhar_id,scheme_name,approval_date):

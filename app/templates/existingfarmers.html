@@ -20,9 +20,24 @@
     {% endwith %}
     
     <!-- Search Form -->
-    <form method="GET" action="{{ url_for('farmer.existing_farmers') }}" class="search-form">
-        <input type="text" name="search_f_aadharId" placeholder="Search by Aadhar ID" required class="search-input">
-        <button type="submit" class="search-button">Search</button>
+    <form method="POST" action="{{ url_for('farmer.existing_farmers') }}" class="flex gap-2 mb-4">
+        
+        <input type="text" 
+            name="search_f_aadharId" 
+            value="{{ request.args.get('search_f_aadharId', '') }}"
+            placeholder="Search by Aadhar ID"
+            class="border p-2 rounded w-full">
+
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+            Search
+        </button>
+
+        <!-- ✅ Clear button -->
+        <a href="{{ url_for('farmer.existing_farmers') }}" 
+        class="bg-gray-400 text-white px-4 py-2 rounded">
+            Clear
+        </a>
+
     </form>
 
     <!-- Farmer Table -->
